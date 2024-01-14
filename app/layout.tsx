@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import MuiThemeProvider from "@/components/common/theme-provider/MuiThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,21 +19,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* MUI required fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
-        />
-
         {/* For MUI Icons */}
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body>
+        <AppRouterCacheProvider>
+          <MuiThemeProvider>{children}</MuiThemeProvider>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }
