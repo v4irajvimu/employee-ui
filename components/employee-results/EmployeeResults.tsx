@@ -23,7 +23,7 @@ import NoData from "../no-data/NoData";
 const EmployeeResults = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { dialogOpen, loading, layout, term, deleteCandidate, data } =
+  const { dialogOpen, loading, layout, term, deleteCandidate, data, sort } =
     useSelector((state: RootState) => state.employee);
 
   const handleDialogClose = () => {
@@ -35,8 +35,8 @@ const EmployeeResults = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchEmployees(term));
-  }, [term]);
+    dispatch(fetchEmployees({ term, sort }));
+  }, [term, sort]);
 
   return (
     <>

@@ -1,12 +1,14 @@
 "use client";
 
 import { Employee } from "@/types";
+import { SortTypes } from "@/utils/enums";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export interface EmployeeState {
   layout: "GRID" | "LIST";
   term: string;
+  sort: SortTypes;
   loading: boolean;
   data: Employee[];
   error: boolean;
@@ -24,13 +26,16 @@ const initialState: EmployeeState = {
   errorMessage: "",
   dialogOpen: false,
   deleteCandidate: "",
+  sort: SortTypes.FirstNameAsc,
 };
 
 export const fetchEmployees = createAsyncThunk(
   "employee/fetchEmployees",
-  (term: string = "") => {
+  (payload: { term?: string; sort: SortTypes }) => {
     return axios
-      .get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/employee?term=${term}`)
+      .get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/employee?term=${payload.term}&sort=${payload.sort}`
+      )
       .then((response) => response.data);
   }
 );
@@ -60,9 +65,12 @@ export const employeeSlice = createSlice({
     setDeleteCandidate: (state, action) => {
       state.deleteCandidate = action.payload;
     },
+    setSortBy: (state, action) => {
+      state.sort = action.payload;
+    },
   },
   extraReducers: (builder) => {
-    // featch user cases
+    // fetch user cases
     builder.addCase(fetchEmployees.pending, (state) => {
       state.loading = true;
     });
@@ -99,6 +107,7 @@ export const {
   setSearchTerm,
   setDialogOpen,
   setDeleteCandidate,
+  setSortBy,
 } = employeeSlice.actions;
 
 export default employeeSlice.reducer;
