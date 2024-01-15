@@ -1,8 +1,7 @@
 "use client";
 import ActionPanel from "@/components/action-panel/ActionPanel";
-import EmployeeGrid from "@/components/employee-grid/EmployeeGrid";
-import { Container, Paper, Stack, Typography } from "@mui/material";
-import React from "react";
+import EmployeeResults from "@/components/employee-results/EmployeeResults";
+import { Container, Stack } from "@mui/material";
 
 type Props = {};
 
@@ -11,7 +10,7 @@ const EmployeeList = (props: Props) => {
     <Container>
       <Stack direction="column">
         <ActionPanel />
-        <EmployeeGrid />
+        <EmployeeResults />
       </Stack>
     </Container>
   );

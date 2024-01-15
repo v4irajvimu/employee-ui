@@ -4,3 +4,10 @@ export const purple = {
   light: "#ab47bc",
   contrastText: "#fff",
 };
+
+export const green = {
+  main: "#388e3c",
+  dark: "#1b5e20",
+  light: "#66bb6a",
+  contrastText: "#fff",
+};

@@ -1,60 +1,88 @@
-import React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Box, IconButton, Stack } from "@mui/material";
+"use client";
+
+import {
+  setDeleteCandidate,
+  setDialogOpen,
+} from "@/redux/slices/employee-slice";
+import type { AppDispatch } from "@/redux/store";
+import { Employee } from "@/types";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { IconButton, Stack } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import Link from "next/link";
+import { useDispatch } from "react-redux";
 
-type Props = {};
+type EmployeeCardProps = {
+  employee: Employee;
+};
 
-const EmployeeCard = (props: Props) => {
+const EmployeeCard = ({ employee }: EmployeeCardProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleDelete = () => {
+    dispatch(setDeleteCandidate(employee._id));
+    dispatch(setDialogOpen(true));
+  };
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
-        sx={{ height: 140 }}
-        image="https://randomuser.me/api/portraits/men/92.jpg"
+        sx={{ height: 200 }}
+        image={employee.photo}
         title="green iguana"
       />
       <CardContent>
-        <Stack direction="row" justifyContent="space-between">
-          <Stack direction="column" gap={2}>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
+        <Stack direction="column" gap={2}>
+          <Typography variant="h5" component="div">
+            {`${employee.firstName} ${employee.lastName}`}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {employee.email}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" flexWrap="wrap">
+            {employee.phoneNumber}
+          </Typography>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            width="100%"
+          >
             <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
+              {employee.gender === "F" ? "Female" : "Male"}
             </Typography>
-          </Stack>
-          <Stack direction="row" gap={1} alignItems="flex-end">
-            <Box>
+            <Stack direction="row" gap={1}>
               <IconButton
                 size="small"
+                onClick={handleDelete}
                 sx={{
                   "&.MuiIconButton-root": {
                     backgroundColor: "error.main",
+                    color: "error.contrastText",
                   },
                 }}
               >
                 <DeleteIcon />
               </IconButton>
-            </Box>
-            <Box>
-              <IconButton
-                size="small"
-                sx={{
-                  "&.MuiIconButton-root": {
-                    backgroundColor: "success.main",
-                  },
-                }}
-              >
-                <EditIcon />
-              </IconButton>
-            </Box>
+
+              <Link href={`/employee/edit/${employee._id}`}>
+                <IconButton
+                  size="small"
+                  sx={{
+                    "&.MuiIconButton-root": {
+                      backgroundColor: "success.main",
+                      color: "error.contrastText",
+                    },
+                  }}
+                >
+                  <EditIcon />
+                </IconButton>
+              </Link>
+            </Stack>
           </Stack>
         </Stack>
       </CardContent>

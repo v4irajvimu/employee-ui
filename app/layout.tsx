@@ -1,10 +1,11 @@
 import Header from "@/components/common/header/Header";
 import MuiThemeProvider from "@/components/common/theme-provider/MuiThemeProvider";
+import ReduxProvider from "@/redux/ReduxProvider";
+import { Paper } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Box, Container, Paper } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,8 +31,10 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <MuiThemeProvider>
-            <Header />
-            <Paper sx={{ mt: 6 }}>{children}</Paper>
+            <ReduxProvider>
+              <Header />
+              <Paper sx={{ mt: 6 }}>{children}</Paper>
+            </ReduxProvider>
           </MuiThemeProvider>
         </AppRouterCacheProvider>
       </body>
