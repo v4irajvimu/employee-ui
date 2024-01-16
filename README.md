@@ -1,6 +1,24 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Description
+
+This NextJS project contains the basic UI for the CRUD operations for employee management. This was created as a coding test for Swivel Tech.
+
 ## Getting Started
+
+- Clone the repository from [Github](https://github.com/v4irajvimu/employee-ui)
+
+```bash
+$ git clone https://github.com/v4irajvimu/employee-ui.git
+```
+
+- Find the .env.local file from the attached resources folder. particular file is located at folder called front-end. Copy that file to project root.
+
+- Install the dependencies.
+
+```bash
+$ yarn install
+```
 
 First, run the development server:
 
